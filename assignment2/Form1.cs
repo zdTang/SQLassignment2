@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,19 +18,32 @@ namespace assignment2
             InitializeComponent();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+
+    
+
+
+        private void Copy_Click(object sender, EventArgs e)
         {
+            OleDbConnection myConnection = new OleDbConnection("File Name = d:\\link.udl");            //myConnection.ConnectionString = "File Name =‪ D:\\link.UDL";            try
+            {
+                myConnection.Open();
+                if (myConnection.State == ConnectionState.Open)
+                    MessageBox.Show("Good!").ToString();
+                    //Console.WriteLine("Connection opened successfully!");
+                else
+                    Console.WriteLine("Connection could not be established");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            Console.ReadLine();
 
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
+            return;
         }
     }
 }

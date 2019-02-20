@@ -47,7 +47,7 @@
             this.sourceTable.Name = "sourceTable";
             this.sourceTable.Size = new System.Drawing.Size(125, 20);
             this.sourceTable.TabIndex = 0;
-            this.sourceTable.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+         
             // 
             // sourceDatabase
             // 
@@ -78,7 +78,7 @@
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Database";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+
             // 
             // label2
             // 
@@ -88,7 +88,7 @@
             this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Source";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+
             // 
             // label3
             // 
@@ -98,7 +98,7 @@
             this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Table";
-            this.label3.Click += new System.EventHandler(this.label1_Click);
+
             // 
             // label4
             // 
@@ -108,7 +108,7 @@
             this.label4.Size = new System.Drawing.Size(53, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "Database";
-            this.label4.Click += new System.EventHandler(this.label1_Click);
+
             // 
             // label5
             // 
@@ -118,7 +118,7 @@
             this.label5.Size = new System.Drawing.Size(34, 13);
             this.label5.TabIndex = 4;
             this.label5.Text = "Table";
-            this.label5.Click += new System.EventHandler(this.label1_Click);
+
             // 
             // label6
             // 
@@ -137,6 +137,7 @@
             this.Copy.TabIndex = 5;
             this.Copy.Text = "Copy";
             this.Copy.UseVisualStyleBackColor = true;
+            this.Copy.Click += new System.EventHandler(this.Copy_Click);
             // 
             // Form1
             // 
