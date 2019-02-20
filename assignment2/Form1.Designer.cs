@@ -47,7 +47,6 @@
             this.sourceTable.Name = "sourceTable";
             this.sourceTable.Size = new System.Drawing.Size(125, 20);
             this.sourceTable.TabIndex = 0;
-         
             // 
             // sourceDatabase
             // 
@@ -78,7 +77,6 @@
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Database";
-
             // 
             // label2
             // 
@@ -88,7 +86,6 @@
             this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Source";
-
             // 
             // label3
             // 
@@ -98,7 +95,6 @@
             this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Table";
-
             // 
             // label4
             // 
@@ -108,7 +104,6 @@
             this.label4.Size = new System.Drawing.Size(53, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "Database";
-
             // 
             // label5
             // 
@@ -118,7 +113,6 @@
             this.label5.Size = new System.Drawing.Size(34, 13);
             this.label5.TabIndex = 4;
             this.label5.Text = "Table";
-
             // 
             // label6
             // 
