@@ -30,6 +30,7 @@ namespace assignment2
             try
             {
                 myConnection.Open();
+
                 if (myConnection.State == ConnectionState.Open)
                 {
                     MessageBox.Show("Good!").ToString();
@@ -46,7 +47,7 @@ namespace assignment2
 
                         string x = sourceTable.Text;
 
-                        //command.CommandText = "SELECT count(*) FROM INFORMATION_SCHEMA.TABLES " + sourceDatabase.Text + " WHERE " + sourceDatabase.Text + ".TABLE_NAME = '" + sourceTable.Text + "'";
+                        command.CommandText = "use " + sourceDatabase.Text + "; SELECT count(*) FROM INFORMATION_SCHEMA.TABLES " + sourceDatabase.Text + " WHERE " + sourceDatabase.Text + ".TABLE_NAME = '" + sourceTable.Text + "'";
                         //command.CommandText = "SELECT count(*) FROM INFORMATION_SCHEMA.TABLES " + sourceDatabase.Text + "";
                         string ifTable = command.ExecuteScalar().ToString();
                         if(ifTable=="1")
@@ -67,6 +68,9 @@ namespace assignment2
                     
 
                 }
+
+
+
 
                 // all logic should put here
 
