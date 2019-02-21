@@ -39,34 +39,34 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.Copy = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.sourceBtn = new System.Windows.Forms.Button();
+            this.targetBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // sourceTable
             // 
-            this.sourceTable.Location = new System.Drawing.Point(159, 185);
+            this.sourceTable.Location = new System.Drawing.Point(158, 190);
             this.sourceTable.Name = "sourceTable";
             this.sourceTable.Size = new System.Drawing.Size(125, 20);
             this.sourceTable.TabIndex = 0;
             // 
             // sourceDatabase
             // 
-            this.sourceDatabase.Location = new System.Drawing.Point(159, 118);
+            this.sourceDatabase.Location = new System.Drawing.Point(158, 130);
             this.sourceDatabase.Name = "sourceDatabase";
             this.sourceDatabase.Size = new System.Drawing.Size(125, 20);
             this.sourceDatabase.TabIndex = 1;
             // 
             // targetDatabase
             // 
-            this.targetDatabase.Location = new System.Drawing.Point(593, 118);
+            this.targetDatabase.Location = new System.Drawing.Point(653, 130);
             this.targetDatabase.Name = "targetDatabase";
             this.targetDatabase.Size = new System.Drawing.Size(125, 20);
             this.targetDatabase.TabIndex = 2;
             // 
             // targetTable
             // 
-            this.targetTable.Location = new System.Drawing.Point(593, 183);
+            this.targetTable.Location = new System.Drawing.Point(653, 196);
             this.targetTable.Name = "targetTable";
             this.targetTable.Size = new System.Drawing.Size(125, 20);
             this.targetTable.TabIndex = 3;
@@ -74,7 +74,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 118);
+            this.label1.Location = new System.Drawing.Point(72, 130);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 4;
@@ -83,7 +83,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(167, 82);
+            this.label2.Location = new System.Drawing.Point(155, 97);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 4;
@@ -92,7 +92,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(36, 185);
+            this.label3.Location = new System.Drawing.Point(72, 197);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 4;
@@ -101,7 +101,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(503, 118);
+            this.label4.Location = new System.Drawing.Point(567, 133);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 13);
             this.label4.TabIndex = 4;
@@ -110,7 +110,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(503, 176);
+            this.label5.Location = new System.Drawing.Point(567, 200);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(34, 13);
             this.label5.TabIndex = 4;
@@ -119,7 +119,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(590, 82);
+            this.label6.Location = new System.Drawing.Point(650, 97);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(60, 13);
             this.label6.TabIndex = 4;
@@ -127,38 +127,41 @@
             // 
             // Copy
             // 
-            this.Copy.Location = new System.Drawing.Point(366, 143);
+            this.Copy.Location = new System.Drawing.Point(378, 125);
             this.Copy.Name = "Copy";
-            this.Copy.Size = new System.Drawing.Size(75, 23);
+            this.Copy.Size = new System.Drawing.Size(110, 23);
             this.Copy.TabIndex = 5;
             this.Copy.Text = "Copy";
             this.Copy.UseVisualStyleBackColor = true;
             this.Copy.Click += new System.EventHandler(this.Copy_Click);
             // 
-            // button1
+            // sourceBtn
             // 
-            this.button1.Location = new System.Drawing.Point(39, 31);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(245, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Generate Connection String";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.sourceBtn.Location = new System.Drawing.Point(75, 50);
+            this.sourceBtn.Name = "sourceBtn";
+            this.sourceBtn.Size = new System.Drawing.Size(208, 23);
+            this.sourceBtn.TabIndex = 6;
+            this.sourceBtn.Text = "Setup Source Database";
+            this.sourceBtn.UseVisualStyleBackColor = true;
+            this.sourceBtn.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox1
+            // targetBtn
             // 
-            this.textBox1.Location = new System.Drawing.Point(303, 34);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(415, 20);
-            this.textBox1.TabIndex = 7;
+            this.targetBtn.Location = new System.Drawing.Point(570, 49);
+            this.targetBtn.Name = "targetBtn";
+            this.targetBtn.Size = new System.Drawing.Size(208, 24);
+            this.targetBtn.TabIndex = 7;
+            this.targetBtn.Text = "Setup Destination Database";
+            this.targetBtn.UseVisualStyleBackColor = true;
+            this.targetBtn.Click += new System.EventHandler(this.targetBtn_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(844, 316);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(844, 253);
+            this.Controls.Add(this.targetBtn);
+            this.Controls.Add(this.sourceBtn);
             this.Controls.Add(this.Copy);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label2);
@@ -190,8 +193,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button Copy;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button sourceBtn;
+        private System.Windows.Forms.Button targetBtn;
     }
 }
 

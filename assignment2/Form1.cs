@@ -12,7 +12,18 @@ using System.Windows.Forms;
 namespace assignment2
 {
     public partial class Form1 : Form
+
+       
+
+
+
     {
+        static string sourceConnection;   // connection string of source database
+        static string targetConnection;   // connection string of target database
+
+
+
+
         public Form1()
         {
             InitializeComponent();
@@ -89,7 +100,20 @@ namespace assignment2
 
                     //select* into b数据库.dbo.b表 from a数据库.dbo.a表[where 条件]//
 
-
+                    //OleDbConnection c = new OleDbConnection("connectionStringForServer1Database1Here");
+                    //OleDbConnection c2 = new OleDbConnection("connectionStringForServer2Database1Here");
+                    //c.Open();
+                    //OleDbCommand cm = new OleDbCommand(c);
+                    //cm.CommandText = "select * from table1;";
+                    //using (OleDbDataReader reader = cm.ExecuteReader())
+                    //{
+                    //    using (SqlBulkInsert bc = new OleDbBulkInsert(c))
+                    //    {
+                    //        c2.Open();
+                    //        bc.DestinationTable = "table1";
+                    //        bc.WriteToServer(reader);
+                    //    }
+                    //}
 
 
 
@@ -124,7 +148,8 @@ namespace assignment2
             }
             Console.ReadLine();
 
-            return;
+            return;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -136,9 +161,19 @@ namespace assignment2
             MSDASC.DataLinks dlg = new MSDASC.DataLinks();
             dlg.PromptEdit(ref oConn);
 
-            textBox1.Text = conn.ConnectionString;
+            sourceConnection = conn.ConnectionString;
 
+        }
 
+        private void targetBtn_Click(object sender, EventArgs e)
+        {
+            ADODB.Connection conn = new ADODB.Connection();
+            object oConn = (object)conn;
+
+            MSDASC.DataLinks dlg = new MSDASC.DataLinks();
+            dlg.PromptEdit(ref oConn);
+
+            targetConnection = conn.ConnectionString;
         }
     }
 }
