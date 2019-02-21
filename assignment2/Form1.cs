@@ -18,8 +18,8 @@ namespace assignment2
 
 
     {
-        static string sourceConnection;   // connection string of source database
-        static string targetConnection;   // connection string of target database
+        string sourceConnection;   // connection string of source database
+        string targetConnection;   // connection string of target database
 
 
 
@@ -38,7 +38,7 @@ namespace assignment2
         {
             // OleDbConnection myConnection = new OleDbConnection("File Name = d:\\link.udl");
             OleDbConnection myConnection = new OleDbConnection();
-            myConnection.ConnectionString = "Provider=SQLOLEDB.1;Password=123456;Persist Security Info=True;User ID=sa;Data Source=tang";
+            myConnection.ConnectionString = sourceConnection;
             //myConnection.ConnectionString = "File Name =‪ D:\\link.UDL";
             try
             {
@@ -51,12 +51,34 @@ namespace assignment2
                 {
                     MessageBox.Show("Connection is Good!").ToString();
 
+                    // check if all fields are filled
+
+                    if (String.IsNullOrEmpty(sourceDatabase.Text)|| String.IsNullOrEmpty(sourceTable.Text)||
+                        String.IsNullOrEmpty(targetDatabase.Text)|| String.IsNullOrEmpty(targetTable.Text))
+                    {
+                        MessageBox.Show("Please input all required information!").ToString();
+                        Application.Exit();
+                    }
+
+
+
                     // check source database
                     command.CommandText = "select count(*) From master.dbo.sysdatabases where name = '" + sourceDatabase.Text + "'";
                     string num = command.ExecuteScalar().ToString();
                     if (num == "1")
                     {
                         MessageBox.Show(sourceDatabase.Text + " exist!").ToString();
+
+                        // check if sourceDatabaseText is empty
+
+                        //if (String.IsNullOrEmpty(sourceTable.Text))
+                        //{
+                        //    MessageBox.Show("You have not specify the source table!").ToString();
+                        //    Application.Exit();
+                        //}
+
+
+
 
                         // check source Table
 
@@ -82,6 +104,13 @@ namespace assignment2
 
 
                     // check Target database
+
+                    //if (String.IsNullOrEmpty(targetDatabase.Text))
+                    //{
+                    //    MessageBox.Show("You have not specify the target database!").ToString();
+                    //    Application.Exit();
+                    //}
+
 
                     command.CommandText = "select count(*) From master.dbo.sysdatabases where name = '" + targetDatabase.Text + "'";
                     string ifTargetExist = command.ExecuteScalar().ToString();
