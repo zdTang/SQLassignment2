@@ -40,8 +40,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.Copy = new System.Windows.Forms.Button();
             this.sourceBtn = new System.Windows.Forms.Button();
-            this.targetBtn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // sourceTable
@@ -142,19 +142,9 @@
             this.sourceBtn.Name = "sourceBtn";
             this.sourceBtn.Size = new System.Drawing.Size(208, 23);
             this.sourceBtn.TabIndex = 6;
-            this.sourceBtn.Text = "Setup Source Database";
+            this.sourceBtn.Text = "Generate Connection String";
             this.sourceBtn.UseVisualStyleBackColor = true;
             this.sourceBtn.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // targetBtn
-            // 
-            this.targetBtn.Location = new System.Drawing.Point(570, 49);
-            this.targetBtn.Name = "targetBtn";
-            this.targetBtn.Size = new System.Drawing.Size(208, 24);
-            this.targetBtn.TabIndex = 7;
-            this.targetBtn.Text = "Setup Destination Database";
-            this.targetBtn.UseVisualStyleBackColor = true;
-            this.targetBtn.Click += new System.EventHandler(this.targetBtn_Click);
             // 
             // button1
             // 
@@ -164,15 +154,23 @@
             this.button1.TabIndex = 8;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(329, 55);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(191, 13);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Please make sure the connection work";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(844, 253);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.targetBtn);
             this.Controls.Add(this.sourceBtn);
             this.Controls.Add(this.Copy);
             this.Controls.Add(this.label6);
@@ -206,8 +204,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button Copy;
         private System.Windows.Forms.Button sourceBtn;
-        private System.Windows.Forms.Button targetBtn;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label7;
     }
 }
 

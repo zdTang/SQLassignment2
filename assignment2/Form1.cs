@@ -17,7 +17,7 @@ namespace assignment2
 
     {
         string sourceConnection;   // connection string of source database
-        string targetConnection;   // connection string of target database
+        //string targetConnection;   // connection string of target database
 
         private List<String> tablesList = new List<String>();
         private Dictionary<String, String> columnsDictionary = new Dictionary<String, String>();
@@ -29,16 +29,12 @@ namespace assignment2
             this.sourceDatabase.TabIndex = 0;// this one get focus
         }
 
-
-
-
-
         private void Copy_Click(object sender, EventArgs e)
         {
             // OleDbConnection myConnection = new OleDbConnection("File Name = d:\\link.udl");
             OleDbConnection myConnection = new OleDbConnection();
             myConnection.ConnectionString = sourceConnection;
-            //myConnection.ConnectionString = "File Name =‪ D:\\link.UDL";
+            //myConnection.ConnectionString = "File Name =? D:\\link.UDL";
             try
             {
                 myConnection.Open();
@@ -68,17 +64,6 @@ namespace assignment2
                     {
                         MessageBox.Show(sourceDatabase.Text + " exist!").ToString();
 
-                        // check if sourceDatabaseText is empty
-
-                        //if (String.IsNullOrEmpty(sourceTable.Text))
-                        //{
-                        //    MessageBox.Show("You have not specify the source table!").ToString();
-                        //    Application.Exit();
-                        //}
-
-
-
-
                         // check source Table
 
                         command.CommandText = "use " + sourceDatabase.Text + "; SELECT count(*) FROM INFORMATION_SCHEMA.TABLES " + sourceDatabase.Text + " WHERE " + sourceDatabase.Text + ".TABLE_NAME = '" + sourceTable.Text + "'";
@@ -92,6 +77,7 @@ namespace assignment2
                         else
                         {
                             MessageBox.Show(sourceTable.Text + " doesn't  exist!").ToString();
+                            Application.Exit();
                         }
                         //int table = dTable.Rows.Count ;
 
@@ -99,16 +85,9 @@ namespace assignment2
                     else
                     {
                         MessageBox.Show("Database" + sourceDatabase.Text + " doesn't  exist!").ToString();
+                        Application.Exit();
                     }
 
-
-                    // check Target database
-
-                    //if (String.IsNullOrEmpty(targetDatabase.Text))
-                    //{
-                    //    MessageBox.Show("You have not specify the target database!").ToString();
-                    //    Application.Exit();
-                    //}
 
 
                     command.CommandText = "select count(*) From master.dbo.sysdatabases where name = '" + targetDatabase.Text + "'";
@@ -116,40 +95,43 @@ namespace assignment2
                     if (ifTargetExist == "1")
                     {
                         MessageBox.Show(targetDatabase.Text + " exist!").ToString();
+
+
+                        // check  if target Table exists
+
+                        command.CommandText = "use " + targetDatabase.Text + "; SELECT count(*) FROM INFORMATION_SCHEMA.TABLES " + targetDatabase.Text + " WHERE " + targetDatabase.Text + ".TABLE_NAME = '" + targetTable.Text + "'";
+
+                        string ifTable = command.ExecuteScalar().ToString();
+
+                        if (ifTable == "1")
+                        {
+                            MessageBox.Show(targetTable.Text + "table already exist!, the application quit.").ToString();
+                            Application.Exit();
+                        }
+                        else
+                        {
+                            MessageBox.Show(targetTable.Text + " doesn't  exist!  we are going to copy").ToString();
+
+
+                            // start to copy
+
+                            //select* into b数据库.dbo.b表 from a数据库.dbo.a表[where 条件]//
+
+
+                            command.CommandText = "select* into " + targetDatabase.Text + ".dbo." + targetTable.Text + " from " + sourceDatabase.Text + ".dbo." + sourceTable.Text + "";
+
+                            int effectLines = command.ExecuteNonQuery();
+                            MessageBox.Show(effectLines.ToString() + "has changed").ToString();
+
+
+                        }
+
+
                     }
                     else
                     {
                         MessageBox.Show(targetDatabase.Text + " doesn't  exist!").ToString();
                     }
-
-                    // start to copy
-
-                    command.CommandText = "select count(*) From master.dbo.sysdatabases where name = '" + targetDatabase.Text + "'";
-
-                    //select* into b数据库.dbo.b表 from a数据库.dbo.a表[where 条件]//
-
-                    //OleDbConnection c = new OleDbConnection("connectionStringForServer1Database1Here");
-                    //OleDbConnection c2 = new OleDbConnection("connectionStringForServer2Database1Here");
-                    //c.Open();
-                    //OleDbCommand cm = new OleDbCommand(c);
-                    //cm.CommandText = "select * from table1;";
-                    //using (OleDbDataReader reader = cm.ExecuteReader())
-                    //{
-                    //    using (SqlBulkInsert bc = new OleDbBulkInsert(c))
-                    //    {
-                    //        c2.Open();
-                    //        bc.DestinationTable = "table1";
-                    //        bc.WriteToServer(reader);
-                    //    }
-                    //}
-
-
-
-
-
-
-
-
 
 
                 }
@@ -193,64 +175,63 @@ namespace assignment2
 
         }
 
-        private void targetBtn_Click(object sender, EventArgs e)
-        {
-            ADODB.Connection conn = new ADODB.Connection();
-            object oConn = (object)conn;
+        //private void targetBtn_Click(object sender, EventArgs e)
+        //{
+        //    ADODB.Connection conn = new ADODB.Connection();
+        //    object oConn = (object)conn;
 
-            MSDASC.DataLinks dlg = new MSDASC.DataLinks();
-            dlg.PromptEdit(ref oConn);
+        //    MSDASC.DataLinks dlg = new MSDASC.DataLinks();
+        //    dlg.PromptEdit(ref oConn);
 
-            targetConnection = conn.ConnectionString;
-        }
+        //    targetConnection = conn.ConnectionString;
+        //}
 
         // this button copy table to the new database
-        private void button1_Click_1(object sender, EventArgs e)
-        { 
+        //private void button1_Click_1(object sender, EventArgs e)
 
-        OleDbConnection conn = new OleDbConnection("Provider=SQLOLEDB.1;database=northwind;Password=123456;Persist Security Info=True;User ID=sa;Data Source=DESKTOP-BN246O4");
-        OleDbCommand cmd = new OleDbCommand();
+        //{
 
-        conn.Open();
+        //    OleDbConnection conn = new OleDbConnection("Provider=SQLOLEDB.1;database=northwind;Password=123456;Persist Security Info=True;User ID=sa;Data Source=DESKTOP-BN246O4");
+        //    OleDbCommand cmd = new OleDbCommand();
 
-            OleDbCommand command = new OleDbCommand();
-            command.Connection = conn;
-            command.CommandText = "exec sp_tables";
-            command.CommandType = CommandType.Text;
-
-           OleDbDataReader reader = command.ExecuteReader();
-
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                    tablesList.Add(reader["TABLE_NAME"].ToString());
-            }
-            reader.Close();
-
-            command.CommandText = "exec sp_columns @table_name = '" + tablesList[0] + "'";
-            command.CommandType = CommandType.Text;
-            reader = command.ExecuteReader();
-
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                    columnsDictionary.Add(reader["COLUMN_NAME"].ToString(), reader["TYPE_NAME"].ToString());
-            }
+        //    conn.Open();
 
 
 
 
+        //    OleDbCommand command = new OleDbCommand();
+        //    command.Connection = conn;
+        //    command.CommandText = "exec sp_tables";
+        //    command.CommandType = CommandType.Text;
 
 
+        //    OleDbDataReader reader = command.ExecuteReader();
 
-        }
+
+        //    if (reader.HasRows)
+        //    {
+        //        while (reader.Read())
+        //            tablesList.Add(reader["TABLE_NAME"].ToString());
+        //    }
+        //    reader.Close();
+
+        //    command.CommandText = "exec sp_columns @table_name = '" + tablesList[0] + "'";
+        //    command.CommandType = CommandType.Text;
+        //    reader = command.ExecuteReader();
+
+        //    if (reader.HasRows)
+        //    {
+        //        while (reader.Read())
+        //            columnsDictionary.Add(reader["COLUMN_NAME"].ToString(), reader["TYPE_NAME"].ToString());
+        //    }
+
+
+        //}
     }
 }
 
 
-     
-       
-         
+
 
 
 
