@@ -40,7 +40,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.Copy = new System.Windows.Forms.Button();
             this.sourceBtn = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -128,7 +127,7 @@
             // 
             // Copy
             // 
-            this.Copy.Location = new System.Drawing.Point(378, 125);
+            this.Copy.Location = new System.Drawing.Point(376, 154);
             this.Copy.Name = "Copy";
             this.Copy.Size = new System.Drawing.Size(110, 23);
             this.Copy.TabIndex = 5;
@@ -146,23 +145,14 @@
             this.sourceBtn.UseVisualStyleBackColor = true;
             this.sourceBtn.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(378, 190);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(329, 55);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(191, 13);
+            this.label7.Size = new System.Drawing.Size(199, 13);
             this.label7.TabIndex = 9;
-            this.label7.Text = "Please make sure the connection work";
+            this.label7.Text = "Please make sure the connection works!";
             // 
             // Form1
             // 
@@ -170,7 +160,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(844, 253);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.sourceBtn);
             this.Controls.Add(this.Copy);
             this.Controls.Add(this.label6);
@@ -204,7 +193,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button Copy;
         private System.Windows.Forms.Button sourceBtn;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label7;
     }
 }

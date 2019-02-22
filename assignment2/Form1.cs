@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*==============================================================================
+ Project    :  Advanced SQL Assignment #3
+ Discription:  This application is to copy a table between two different database
+               with OLE DB provider.
+ Programmer :  Zhendong Tang
+ Date       :  Feb 22, 2019
+ ============================================================================*/
+
+
+
+
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,111 +30,113 @@ namespace assignment2
 
     {
         string sourceConnection;   // connection string of source database
-        //string targetConnection;   // connection string of target database
-
-        private List<String> tablesList = new List<String>();
-        private Dictionary<String, String> columnsDictionary = new Dictionary<String, String>();
-
-
+        
         public Form1()
         {
             InitializeComponent();
-            this.sourceDatabase.TabIndex = 0;// this one get focus
+            this.sourceBtn.TabIndex = 0;    // this component get focus
         }
 
         private void Copy_Click(object sender, EventArgs e)
         {
-            // OleDbConnection myConnection = new OleDbConnection("File Name = d:\\link.udl");
+
+
+
+            //   Check if the CONNECTION STRING is empty
+
+            if (String.IsNullOrEmpty(sourceConnection) )
+            {
+                MessageBox.Show("Please Generate Connection String Frist!").ToString();
+                Application.Exit();      //  if Connection String is EMPTY, application quits.
+            }
+
+
             OleDbConnection myConnection = new OleDbConnection();
-            myConnection.ConnectionString = sourceConnection;
-            //myConnection.ConnectionString = "File Name =? D:\\link.UDL";
             try
             {
+
+              
+                myConnection.ConnectionString = sourceConnection;   //  Connect to Database
+
                 myConnection.Open();
 
                 OleDbCommand command = new OleDbCommand();
+
                 command.Connection = myConnection;
 
                 if (myConnection.State == ConnectionState.Open)
                 {
-                    MessageBox.Show("Connection is Good!").ToString();
+   
 
-                    // check if all fields are filled
+                    // Check if all REQUIRED information are over there. 
 
                     if (String.IsNullOrEmpty(sourceDatabase.Text) || String.IsNullOrEmpty(sourceTable.Text) ||
                         String.IsNullOrEmpty(targetDatabase.Text) || String.IsNullOrEmpty(targetTable.Text))
                     {
                         MessageBox.Show("Please input all required information!").ToString();
-                        Application.Exit();
+                        Application.Exit();  // If missed something required, the application will quit. 
                     }
 
 
 
-                    // check source database
+                    // Check if source database exists
                     command.CommandText = "select count(*) From master.dbo.sysdatabases where name = '" + sourceDatabase.Text + "'";
-                    string num = command.ExecuteScalar().ToString();
-                    if (num == "1")
-                    {
-                        MessageBox.Show(sourceDatabase.Text + " exist!").ToString();
 
-                        // check source Table
+                    if((int)command.ExecuteScalar()==1)  // Source Database exists.
+                    {
+
+
+                        // check if source Table exists
 
                         command.CommandText = "use " + sourceDatabase.Text + "; SELECT count(*) FROM INFORMATION_SCHEMA.TABLES " + sourceDatabase.Text + " WHERE " + sourceDatabase.Text + ".TABLE_NAME = '" + sourceTable.Text + "'";
 
-                        string ifTable = command.ExecuteScalar().ToString();
 
-                        if (ifTable == "1")
-                        {
-                            MessageBox.Show(sourceTable.Text + "table  exist!").ToString();
-                        }
-                        else
+                        if((int)command.ExecuteScalar()!=1)  //  if source table doesn't exist
+
                         {
                             MessageBox.Show(sourceTable.Text + " doesn't  exist!").ToString();
                             Application.Exit();
                         }
-                        //int table = dTable.Rows.Count ;
+
 
                     }
-                    else
+                    else   //  if the source database doesn't exist.
                     {
-                        MessageBox.Show("Database" + sourceDatabase.Text + " doesn't  exist!").ToString();
+                        MessageBox.Show("Database  " + sourceDatabase.Text + " doesn't  exist!").ToString();
                         Application.Exit();
                     }
 
-
+                    // Check if target database exists
 
                     command.CommandText = "select count(*) From master.dbo.sysdatabases where name = '" + targetDatabase.Text + "'";
-                    string ifTargetExist = command.ExecuteScalar().ToString();
-                    if (ifTargetExist == "1")
+
+                    if((int)command.ExecuteScalar()==1)  // Target database exists
                     {
-                        MessageBox.Show(targetDatabase.Text + " exist!").ToString();
+                        
 
-
-                        // check  if target Table exists
+                        // Once the Target database exists, then check  if target Table exists
 
                         command.CommandText = "use " + targetDatabase.Text + "; SELECT count(*) FROM INFORMATION_SCHEMA.TABLES " + targetDatabase.Text + " WHERE " + targetDatabase.Text + ".TABLE_NAME = '" + targetTable.Text + "'";
 
-                        string ifTable = command.ExecuteScalar().ToString();
 
-                        if (ifTable == "1")
+                        if((int)command.ExecuteScalar()==1) // if the target table is already over there. quit the application. 
                         {
-                            MessageBox.Show(targetTable.Text + "table already exist!, the application quit.").ToString();
+                            MessageBox.Show(targetTable.Text + " already exist!, Copy is not possible, the application quit.").ToString();
                             Application.Exit();
                         }
                         else
                         {
-                            MessageBox.Show(targetTable.Text + " doesn't  exist!  we are going to copy").ToString();
+ 
+                            // Everything is fine, ready to copy !!!!!
+                            // Use a Transaction to keep the whole action safe
 
 
-                            // start to copy
-
-                            //select* into b数据库.dbo.b表 from a数据库.dbo.a表[where 条件]//
-
-
-                            command.CommandText = "select* into " + targetDatabase.Text + ".dbo." + targetTable.Text + " from " + sourceDatabase.Text + ".dbo." + sourceTable.Text + "";
+                            command.CommandText = "BEGIN TRAN COPY; ";  //  Start a Transaction                           
+                            command.CommandText += "select* into " + targetDatabase.Text + ".dbo." + targetTable.Text + " from " + sourceDatabase.Text + ".dbo." + sourceTable.Text + "";
+                            command.CommandText += ";COMMIT TRAN COPY";  // Commit a Transaction
 
                             int effectLines = command.ExecuteNonQuery();
-                            MessageBox.Show(effectLines.ToString() + "has changed").ToString();
+                            MessageBox.Show("Copy successfully! "+ effectLines.ToString() + " records have been copied").ToString();
 
 
                         }
@@ -131,26 +146,18 @@ namespace assignment2
                     else
                     {
                         MessageBox.Show(targetDatabase.Text + " doesn't  exist!").ToString();
+                        Application.Exit();
                     }
 
 
                 }
-                // all logic should put here
-
-
-                /*check source and destination database*/
-
-                // get text from those textbox
-
-                else
-                {
-                    MessageBox.Show("Connot connect to the database, check the UDL file. ").ToString();
-                }
+                
 
             }
-            catch (Exception ex)
+            catch (Exception ex)  // Once something wrong, show error message and quit.
             {
-                Console.WriteLine(ex.Message.ToString());
+                MessageBox.Show(ex.Message.ToString()).ToString();
+                Application.Exit();
             }
             finally
             {
@@ -175,58 +182,7 @@ namespace assignment2
 
         }
 
-        //private void targetBtn_Click(object sender, EventArgs e)
-        //{
-        //    ADODB.Connection conn = new ADODB.Connection();
-        //    object oConn = (object)conn;
-
-        //    MSDASC.DataLinks dlg = new MSDASC.DataLinks();
-        //    dlg.PromptEdit(ref oConn);
-
-        //    targetConnection = conn.ConnectionString;
-        //}
-
-        // this button copy table to the new database
-        //private void button1_Click_1(object sender, EventArgs e)
-
-        //{
-
-        //    OleDbConnection conn = new OleDbConnection("Provider=SQLOLEDB.1;database=northwind;Password=123456;Persist Security Info=True;User ID=sa;Data Source=DESKTOP-BN246O4");
-        //    OleDbCommand cmd = new OleDbCommand();
-
-        //    conn.Open();
-
-
-
-
-        //    OleDbCommand command = new OleDbCommand();
-        //    command.Connection = conn;
-        //    command.CommandText = "exec sp_tables";
-        //    command.CommandType = CommandType.Text;
-
-
-        //    OleDbDataReader reader = command.ExecuteReader();
-
-
-        //    if (reader.HasRows)
-        //    {
-        //        while (reader.Read())
-        //            tablesList.Add(reader["TABLE_NAME"].ToString());
-        //    }
-        //    reader.Close();
-
-        //    command.CommandText = "exec sp_columns @table_name = '" + tablesList[0] + "'";
-        //    command.CommandType = CommandType.Text;
-        //    reader = command.ExecuteReader();
-
-        //    if (reader.HasRows)
-        //    {
-        //        while (reader.Read())
-        //            columnsDictionary.Add(reader["COLUMN_NAME"].ToString(), reader["TYPE_NAME"].ToString());
-        //    }
-
-
-        //}
+       
     }
 }
 
