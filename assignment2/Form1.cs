@@ -13,15 +13,14 @@ namespace assignment2
 {
     public partial class Form1 : Form
 
-       
-
 
 
     {
         string sourceConnection;   // connection string of source database
         string targetConnection;   // connection string of target database
 
-
+        private List<String> tablesList = new List<String>();
+        private Dictionary<String, String> columnsDictionary = new Dictionary<String, String>();
 
 
         public Form1()
@@ -31,7 +30,7 @@ namespace assignment2
         }
 
 
-    
+
 
 
         private void Copy_Click(object sender, EventArgs e)
@@ -53,8 +52,8 @@ namespace assignment2
 
                     // check if all fields are filled
 
-                    if (String.IsNullOrEmpty(sourceDatabase.Text)|| String.IsNullOrEmpty(sourceTable.Text)||
-                        String.IsNullOrEmpty(targetDatabase.Text)|| String.IsNullOrEmpty(targetTable.Text))
+                    if (String.IsNullOrEmpty(sourceDatabase.Text) || String.IsNullOrEmpty(sourceTable.Text) ||
+                        String.IsNullOrEmpty(targetDatabase.Text) || String.IsNullOrEmpty(targetTable.Text))
                     {
                         MessageBox.Show("Please input all required information!").ToString();
                         Application.Exit();
@@ -165,7 +164,7 @@ namespace assignment2
                 {
                     MessageBox.Show("Connot connect to the database, check the UDL file. ").ToString();
                 }
-                    
+
             }
             catch (Exception ex)
             {
@@ -204,5 +203,56 @@ namespace assignment2
 
             targetConnection = conn.ConnectionString;
         }
+
+        // this button copy table to the new database
+        private void button1_Click_1(object sender, EventArgs e)
+        { 
+
+        OleDbConnection conn = new OleDbConnection("Provider=SQLOLEDB.1;database=northwind;Password=123456;Persist Security Info=True;User ID=sa;Data Source=DESKTOP-BN246O4");
+        OleDbCommand cmd = new OleDbCommand();
+
+        conn.Open();
+
+            OleDbCommand command = new OleDbCommand();
+            command.Connection = conn;
+            command.CommandText = "exec sp_tables";
+            command.CommandType = CommandType.Text;
+
+           OleDbDataReader reader = command.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                    tablesList.Add(reader["TABLE_NAME"].ToString());
+            }
+            reader.Close();
+
+            command.CommandText = "exec sp_columns @table_name = '" + tablesList[0] + "'";
+            command.CommandType = CommandType.Text;
+            reader = command.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                    columnsDictionary.Add(reader["COLUMN_NAME"].ToString(), reader["TYPE_NAME"].ToString());
+            }
+
+
+
+
+
+
+
+        }
     }
 }
+
+
+     
+       
+         
+
+
+
+
+
